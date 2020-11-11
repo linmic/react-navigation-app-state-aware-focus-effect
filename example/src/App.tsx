@@ -1,25 +1,40 @@
-import * as React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import AppStateAwareFocusEffect from 'react-native-app-state-aware-focus-effect';
+import React, { useCallback } from 'react';
+import { View, Text, Alert } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import useAppStateAwareFocusEffect from 'react-native-app-state-aware-focus-effect';
 
-export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    AppStateAwareFocusEffect.multiply(3, 7).then(setResult);
+function HomeScreen() {
+  const memoizedEffect = useCallback(() => {
+    Alert.alert('Effect', 'Effect triggered!');
   }, []);
 
+  useAppStateAwareFocusEffect(memoizedEffect);
+
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Home!</Text>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function SettingsScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings!</Text>
+    </View>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}

@@ -1,8 +1,24 @@
-import { useEffect } from 'react';
+import type { RefObject } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { AppState, AppStateStatus } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
-type EffectCallback = () => undefined | void | (() => void);
+type EffectCleanup = undefined | void | (() => void);
+type EffectCallback = () => EffectCleanup;
+
+const cleanupIfNeeded = (cleanup: RefObject<EffectCleanup | null>) => {
+  if (cleanup && cleanup.current && typeof cleanup.current === 'function') {
+    cleanup.current();
+  }
+};
+
+const callback = (effect: EffectCallback) => {
+  const destroy = effect();
+
+  if (destroy === undefined || typeof destroy === 'function') {
+    return destroy;
+  }
+};
 
 /**
  * Hook to run an effect when resurfaced from either background or a different view.
@@ -12,17 +28,39 @@ type EffectCallback = () => undefined | void | (() => void);
  * @param callback Memoized callback containing the effect.
  */
 export default function useAppStateAwareFocusEffect(effect: EffectCallback) {
+  let cleanup = useRef<EffectCleanup | null>(null);
+
   const navigation = useNavigation();
 
-  // cleanup is built-in
-  useFocusEffect(effect);
+  useFocusEffect(
+    useCallback(() => {
+      cleanupIfNeeded(cleanup);
+
+      cleanup.current = callback(effect);
+
+      return () => {
+        cleanupIfNeeded(cleanup);
+      };
+    }, [effect])
+  );
 
   useEffect(() => {
     const handler = (nextAppState: AppStateStatus) => {
-      console.log({ nextAppState, navigation });
+      console.log('appState changed', nextAppState, cleanup);
 
       if (nextAppState === 'active' && navigation.isFocused()) {
-        effect();
+        cleanup.current = callback(effect);
+      }
+
+      if (
+        cleanup &&
+        cleanup.current &&
+        typeof cleanup.current !== 'undefined' &&
+        nextAppState !== 'active'
+      ) {
+        cleanup.current();
+
+        cleanup.current = undefined;
       }
     };
 
@@ -30,6 +68,8 @@ export default function useAppStateAwareFocusEffect(effect: EffectCallback) {
 
     return () => {
       AppState.removeEventListener('change', handler);
+
+      cleanupIfNeeded(cleanup);
     };
   }, [effect, navigation]);
 }

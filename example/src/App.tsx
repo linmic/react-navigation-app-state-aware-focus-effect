@@ -7,6 +7,10 @@ import useAppStateAwareFocusEffect from 'react-native-app-state-aware-focus-effe
 function HomeScreen() {
   const memoizedEffect = useCallback(() => {
     Alert.alert('Effect', 'Effect triggered!');
+
+    return () => {
+      console.log('cleaned');
+    };
   }, []);
 
   useAppStateAwareFocusEffect(memoizedEffect);

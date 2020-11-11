@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { StyleSheet, View, Text, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import useAppStateAwareFocusEffect from 'react-native-app-state-aware-focus-effect';
@@ -16,7 +16,7 @@ function HomeScreen() {
   useAppStateAwareFocusEffect(memoizedEffect);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
       <Text>Home!</Text>
     </View>
   );
@@ -24,7 +24,7 @@ function HomeScreen() {
 
 function SettingsScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
       <Text>Settings!</Text>
     </View>
   );
@@ -42,3 +42,11 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

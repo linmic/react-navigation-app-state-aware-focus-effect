@@ -1,8 +1,6 @@
 # react-native-app-state-aware-focus-effect
 
-[![Build Status][build-badge]][build]
-[![Code Coverage][coverage-badge]][coverage]
-[![MIT License][license-badge]][license]
+[![linmic](https://circleci.com/gh/linmic/react-native-app-state-aware-focus-effect.svg?style=shield)](https://app.circleci.com/pipelines/github/linmic/react-native-app-state-aware-focus-effect)
 
 AppState-aware focus effect for React Native with React Navigation
 

@@ -5,9 +5,9 @@ import {
   TabRouter,
   createNavigatorFactory,
   NavigationHelpersContext,
-  BaseNavigationContainer,
+  NavigationContainer,
   NavigationContainerRef,
-} from '@react-navigation/core';
+} from '@react-navigation/native';
 
 import useAppStateAwareFocusEffect from '../';
 
@@ -48,13 +48,13 @@ it('runs effect when focused', async () => {
   const navigation = createRef<NavigationContainerRef>();
 
   render(
-    <BaseNavigationContainer ref={navigation}>
+    <NavigationContainer ref={navigation}>
       <Tab.Navigator initialRouteName="First">
         <Tab.Screen name="First" component={EmptyScreen} />
         <Tab.Screen name="Second" component={TestScreen} />
         <Tab.Screen name="Third" component={EmptyScreen} />
       </Tab.Navigator>
-    </BaseNavigationContainer>
+    </NavigationContainer>
   );
 
   expect(effect).not.toBeCalled();
@@ -97,11 +97,11 @@ it('runs effect on resurfaced from background', async () => {
   const Tab = createTabNavigator();
 
   render(
-    <BaseNavigationContainer ref={navigation}>
+    <NavigationContainer ref={navigation}>
       <Tab.Navigator initialRouteName="Main">
         <Tab.Screen name="Main" component={TestScreen} />
       </Tab.Navigator>
-    </BaseNavigationContainer>
+    </NavigationContainer>
   );
 
   expect(effect).toBeCalledTimes(1);

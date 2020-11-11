@@ -46,8 +46,6 @@ export default function useAppStateAwareFocusEffect(effect: EffectCallback) {
 
   useEffect(() => {
     const handler = (nextAppState: AppStateStatus) => {
-      console.log('appState changed', nextAppState, cleanup);
-
       if (nextAppState === 'active' && navigation.isFocused()) {
         cleanup.current = callback(effect);
       }

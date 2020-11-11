@@ -1,5 +1,9 @@
 # react-native-app-state-aware-focus-effect
 
+[![Build Status][build-badge]][build]
+[![Code Coverage][coverage-badge]][coverage]
+[![MIT License][license-badge]][license]
+
 AppState-aware focus effect for React Native with React Navigation
 
 ## Background

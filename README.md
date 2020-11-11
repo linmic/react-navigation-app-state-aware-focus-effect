@@ -2,21 +2,74 @@
 
 AppState-aware focus effect for React Native with React Navigation
 
+## Background
+
+In React Native app development, there's a common use case where we would like to perform actions whenever the view is re-focused or re-surfaced from the background, e.g. re-fetching data to make sure it's up-to-date. This is often necessary for apps to display the information that accuracy can be critical, such as financial applications.
+
+This hook could be useful for those applications that use [React Navigation](https://reactnavigation.org/) and have a similar need.
+
 ## Installation
 
 ```sh
-npm install react-native-app-state-aware-focus-effect
+npm i react-native-app-state-aware-focus-effect # or
+yarn add react-native-app-state-aware-focus-effect
 ```
 
 ## Usage
 
+### Minimal example
+
 ```js
-import AppStateAwareFocusEffect from "react-native-app-state-aware-focus-effect";
+import useAppStateAwareFocusEffect from 'react-native-app-state-aware-focus-effect';
 
-// ...
+const req = fetch('https://example.com/dummy.json');
 
-const result = await AppStateAwareFocusEffect.multiply(3, 7);
+// make sure you memoize the effect
+useAppStateAwareFocusEffect(useCallback(() => {
+  req();
+}, []));
 ```
+
+### A more comprehensive example
+
+```js
+import React, { useCallback } from 'react';
+import { View, Text } from 'react-native';
+import { gql, useQuery } from '@apollo/client';
+import useAppStateAwareFocusEffect from 'react-native-app-state-aware-focus-effect';
+
+const GET_DOGS = gql`
+  query GetDogs {
+    dogs {
+      id
+      breed
+    }
+  }
+`;
+
+const Dogs = () => {
+  const { loading, error, data, refetch } = useQuery(GET_DOGS, {
+    fetchPolicy: 'cache-and-network',
+  });
+
+  useAppStateAwareFocusEffect(useCallback(() => {
+    refetch();
+  }, []));
+
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+
+  return (
+    <View>
+      {data.dogs.map(({ id, breed }) => (
+        <Text key={id}>{breed}</Text>
+      ))}
+    </View>
+  );
+};
+```
+
+_Note: Just like [useFocusEffect](https://reactnavigation.org/docs/use-focus-effect/), to avoid running the effect too often, it's important to wrap the callback in [useCallback](https://reactjs.org/docs/hooks-reference.html#usecallback) before passing it to `useAppStateAwareFocusEffect` as shown in the example._
 
 ## Contributing
 

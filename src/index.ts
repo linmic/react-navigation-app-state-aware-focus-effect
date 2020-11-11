@@ -6,7 +6,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 type EffectCleanup = undefined | void | (() => void);
 type EffectCallback = () => EffectCleanup;
 
-const cleanupIfNeeded = (cleanup: RefObject<EffectCleanup | null>) => {
+const cleanupIfNeeded = (cleanup: RefObject<EffectCleanup | undefined>) => {
   if (cleanup && cleanup.current && typeof cleanup.current === 'function') {
     cleanup.current();
   }
@@ -28,7 +28,7 @@ const callback = (effect: EffectCallback) => {
  * @param callback Memoized callback containing the effect.
  */
 export default function useAppStateAwareFocusEffect(effect: EffectCallback) {
-  let cleanup = useRef<EffectCleanup | null>(null);
+  let cleanup = useRef<EffectCleanup | undefined>();
 
   const navigation = useNavigation();
 
@@ -38,25 +38,18 @@ export default function useAppStateAwareFocusEffect(effect: EffectCallback) {
 
       cleanup.current = callback(effect);
 
-      return () => {
-        cleanupIfNeeded(cleanup);
-      };
+      return () => cleanupIfNeeded(cleanup);
     }, [effect])
   );
 
   useEffect(() => {
     const handler = (nextAppState: AppStateStatus) => {
       if (nextAppState === 'active' && navigation.isFocused()) {
-        cleanup.current = callback(effect);
-      }
+        cleanupIfNeeded(cleanup);
 
-      if (
-        cleanup &&
-        cleanup.current &&
-        typeof cleanup.current !== 'undefined' &&
-        nextAppState !== 'active'
-      ) {
-        cleanup.current();
+        cleanup.current = callback(effect);
+      } else {
+        cleanupIfNeeded(cleanup);
 
         cleanup.current = undefined;
       }

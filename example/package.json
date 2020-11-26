@@ -1,6 +1,6 @@
 {
-  "name": "react-native-app-state-aware-focus-effect-example",
-  "description": "Example app for react-native-app-state-aware-focus-effect",
+  "name": "react-navigation-app-state-aware-focus-effect-example",
+  "description": "Example app for react-navigation-app-state-aware-focus-effect",
   "version": "0.0.1",
   "private": true,
   "scripts": {

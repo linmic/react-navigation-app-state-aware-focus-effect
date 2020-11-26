@@ -1,6 +1,6 @@
-# react-native-app-state-aware-focus-effect
+# react-navigation-app-state-aware-focus-effect
 
-[![linmic](https://circleci.com/gh/linmic/react-native-app-state-aware-focus-effect.svg?style=shield)](https://app.circleci.com/pipelines/github/linmic/react-native-app-state-aware-focus-effect)
+[![linmic](https://circleci.com/gh/linmic/react-navigation-app-state-aware-focus-effect.svg?style=shield)](https://app.circleci.com/pipelines/github/linmic/react-navigation-app-state-aware-focus-effect)
 
 AppState-aware focus effect for React Native with React Navigation
 
@@ -13,8 +13,8 @@ This hook could be useful for those applications that use [React Navigation](htt
 ## Installation
 
 ```sh
-npm i react-native-app-state-aware-focus-effect # or
-yarn add react-native-app-state-aware-focus-effect
+npm i react-navigation-app-state-aware-focus-effect # or
+yarn add react-navigation-app-state-aware-focus-effect
 ```
 
 ## Usage
@@ -22,14 +22,16 @@ yarn add react-native-app-state-aware-focus-effect
 ### Minimal example
 
 ```js
-import useAppStateAwareFocusEffect from 'react-native-app-state-aware-focus-effect';
+import useAppStateAwareFocusEffect from 'react-navigation-app-state-aware-focus-effect';
 
 const req = fetch('https://example.com/dummy.json');
 
 // make sure you memoize the effect
-useAppStateAwareFocusEffect(useCallback(() => {
-  req();
-}, []));
+useAppStateAwareFocusEffect(
+  useCallback(() => {
+    req();
+  }, [])
+);
 ```
 
 ### A more comprehensive example
@@ -38,7 +40,7 @@ useAppStateAwareFocusEffect(useCallback(() => {
 import React, { useCallback } from 'react';
 import { View, Text } from 'react-native';
 import { gql, useQuery } from '@apollo/client';
-import useAppStateAwareFocusEffect from 'react-native-app-state-aware-focus-effect';
+import useAppStateAwareFocusEffect from 'react-navigation-app-state-aware-focus-effect';
 
 const GET_DOGS = gql`
   query GetDogs {
@@ -54,9 +56,11 @@ const Dogs = () => {
     fetchPolicy: 'cache-and-network',
   });
 
-  useAppStateAwareFocusEffect(useCallback(() => {
-    refetch();
-  }, []));
+  useAppStateAwareFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [])
+  );
 
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;

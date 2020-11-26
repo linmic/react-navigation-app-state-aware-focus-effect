@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "react-native-app-state-aware-focus-effect": ["./src/index"]
+      "react-navigation-app-state-aware-focus-effect": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

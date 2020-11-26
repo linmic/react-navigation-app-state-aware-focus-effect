@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { StyleSheet, View, Text, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import useAppStateAwareFocusEffect from 'react-native-app-state-aware-focus-effect';
+import useAppStateAwareFocusEffect from 'react-navigation-app-state-aware-focus-effect';
 
 function HomeScreen() {
   const memoizedEffect = useCallback(() => {

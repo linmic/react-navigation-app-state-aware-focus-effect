@@ -1,6 +1,6 @@
 {
-  "name": "react-native-app-state-aware-focus-effect",
-  "version": "0.1.1",
+  "name": "react-navigation-app-state-aware-focus-effect",
+  "version": "0.1.2",
   "description": "AppState-aware focus effect for React Native with React Navigation",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -13,7 +13,7 @@
     "android",
     "ios",
     "cpp",
-    "react-native-app-state-aware-focus-effect.podspec",
+    "react-navigation-app-state-aware-focus-effect.podspec",
     "!lib/typescript/example",
     "!**/__tests__",
     "!**/__fixtures__",
@@ -34,13 +34,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/linmic/react-native-app-state-aware-focus-effect",
+  "repository": "https://github.com/linmic/react-navigation-app-state-aware-focus-effect",
   "author": "Linmic <linmicya@gmail.com> (https://github.com/linmic)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/linmic/react-native-app-state-aware-focus-effect/issues"
+    "url": "https://github.com/linmic/react-navigation-app-state-aware-focus-effect/issues"
   },
-  "homepage": "https://github.com/linmic/react-native-app-state-aware-focus-effect#readme",
+  "homepage": "https://github.com/linmic/react-navigation-app-state-aware-focus-effect#readme",
   "devDependencies": {
     "@commitlint/config-conventional": "^8.3.4",
     "@react-native-community/bob": "^0.16.2",

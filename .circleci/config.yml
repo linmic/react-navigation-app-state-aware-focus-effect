@@ -71,7 +71,7 @@ jobs:
           command: |
             yarn test --coverage
       - codecov/upload:
-          file: { { coverage_report_filepath } }
+          file: './coverage/clover.xml'
       - store_artifacts:
           path: coverage
           destination: coverage

@@ -53,6 +53,7 @@
     "@types/react": "^16.9.56",
     "@types/react-native": "^0.63.33",
     "@types/react-test-renderer": "^16.9.3",
+    "codecov": "^3.8.1",
     "commitlint": "^8.3.5",
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",
@@ -73,6 +74,7 @@
     "react-native": "*"
   },
   "jest": {
+    "collectCoverage": true,
     "preset": "react-native",
     "modulePathIgnorePatterns": [
       "<rootDir>/example/node_modules",

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "sourceMap": true,
     "baseUrl": ".",
     "paths": {
       "react-navigation-app-state-aware-focus-effect": ["./src/index"]

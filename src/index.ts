@@ -12,14 +12,6 @@ const cleanupIfNeeded = (cleanup: RefObject<EffectCleanup | undefined>) => {
   }
 };
 
-const callback = (effect: EffectCallback) => {
-  const destroy = effect();
-
-  if (destroy === undefined || typeof destroy === 'function') {
-    return destroy;
-  }
-};
-
 /**
  * Hook to run an effect when resurfaced from either background or a different view.
  * This can be used to perform side-effects such as refetching data.
@@ -36,7 +28,7 @@ export default function useAppStateAwareFocusEffect(effect: EffectCallback) {
     useCallback(() => {
       cleanupIfNeeded(cleanup);
 
-      cleanup.current = callback(effect);
+      cleanup.current = effect();
 
       return () => cleanupIfNeeded(cleanup);
     }, [effect])
@@ -47,7 +39,7 @@ export default function useAppStateAwareFocusEffect(effect: EffectCallback) {
       if (nextAppState === 'active' && navigation.isFocused()) {
         cleanupIfNeeded(cleanup);
 
-        cleanup.current = callback(effect);
+        cleanup.current = effect();
       } else {
         cleanupIfNeeded(cleanup);
 
@@ -55,11 +47,10 @@ export default function useAppStateAwareFocusEffect(effect: EffectCallback) {
       }
     };
 
-    AppState.addEventListener('change', handler);
+    const subscription = AppState.addEventListener('change', handler);
 
     return () => {
-      AppState.removeEventListener('change', handler);
-
+      subscription.remove();
       cleanupIfNeeded(cleanup);
     };
   }, [effect, navigation]);

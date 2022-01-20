@@ -80,11 +80,11 @@ it('runs effect on resurfaced from background', async () => {
     if (event === 'change') {
       capturedChangeCallback = callback;
     }
+    return jest.fn();
   });
 
   jest.doMock('react-native/Libraries/AppState/AppState', () => ({
     addEventListener: mockAddListener,
-    removeEventListener: jest.fn(),
   }));
 
   const TestScreen = () => {

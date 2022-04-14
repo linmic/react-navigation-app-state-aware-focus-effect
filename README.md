@@ -6,9 +6,9 @@ AppState-aware focus effect for React Native with React Navigation
 
 ## Background
 
-In React Native app development, there's a common use case where we would like to perform actions whenever the view is re-focused or re-surfaced from the background, e.g. re-fetching data to make sure it's up-to-date. This is often necessary for apps to display the information that accuracy can be critical, such as financial applications.
+In React Native app development, there's an everyday use case where we would like to perform actions whenever the view is re-focused or re-surfaced from the background, e.g., re-fetching data to make sure it's up-to-date. It is often necessary for apps to display the information that accuracy can be critical, such as financial applications.
 
-This hook could be useful for those applications that use [React Navigation](https://reactnavigation.org/) and have a similar need.
+This hook could be helpful for those applications that use [React Navigation](https://reactnavigation.org/) and have a similar need.
 
 ## Installation
 

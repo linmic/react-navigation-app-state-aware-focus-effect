@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-app-state-aware-focus-effect",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "AppState-aware focus effect for React Native with React Navigation",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

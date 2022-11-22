@@ -28,8 +28,6 @@ const createTabNavigator = createNavigatorFactory((props: any) => {
 
 beforeEach(() => {
   jest.resetModules();
-  // https://github.com/facebook/jest/issues/6434#issuecomment-525576660
-  jest.useFakeTimers();
 });
 
 it('runs effect when focused', async () => {
@@ -45,7 +43,7 @@ it('runs effect when focused', async () => {
 
   const EmptyScreen = () => null;
 
-  const navigation = createRef<NavigationContainerRef>();
+  const navigation = createRef<NavigationContainerRef<any>>();
 
   render(
     <NavigationContainer ref={navigation}>
@@ -80,11 +78,12 @@ it('runs effect on resurfaced from background', async () => {
     if (event === 'change') {
       capturedChangeCallback = callback;
     }
+
+    return { remove: jest.fn() };
   });
 
   jest.doMock('react-native/Libraries/AppState/AppState', () => ({
     addEventListener: mockAddListener,
-    removeEventListener: jest.fn(),
   }));
 
   const TestScreen = () => {
@@ -93,7 +92,7 @@ it('runs effect on resurfaced from background', async () => {
     return null;
   };
 
-  const navigation = createRef<NavigationContainerRef>();
+  const navigation = createRef<NavigationContainerRef<any>>();
   const Tab = createTabNavigator();
 
   render(

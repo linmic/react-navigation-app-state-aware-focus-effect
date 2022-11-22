@@ -55,10 +55,10 @@ export default function useAppStateAwareFocusEffect(effect: EffectCallback) {
       }
     };
 
-    AppState.addEventListener('change', handler);
+    const subscription = AppState.addEventListener('change', handler);
 
     return () => {
-      AppState.removeEventListener('change', handler);
+      subscription.remove();
 
       cleanupIfNeeded(cleanup);
     };

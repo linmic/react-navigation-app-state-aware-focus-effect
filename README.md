@@ -18,11 +18,10 @@ yarn add react-navigation-app-state-aware-focus-effect
 ```
 
 **Note: if you are using React Native 0.64 or below, please install v0.1.3 instead.**
-npm i react-navigation-app-state-aware-focus-effect@0.1.3 # or
-yarn add react-navigation-app-state-aware-focus-effect@0.1.3
 
 ```sh
-
+npm i react-navigation-app-state-aware-focus-effect@0.1.3 # or
+yarn add react-navigation-app-state-aware-focus-effect@0.1.3
 ```
 
 ## Usage
